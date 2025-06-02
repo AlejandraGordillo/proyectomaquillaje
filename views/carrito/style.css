@@ -1,0 +1,92 @@
+body {
+  background-color: #fff3f8;
+  font-family: 'Segoe UI', sans-serif;
+  margin: 0;
+  padding: 20px;
+  color: #333;
+}
+
+/* Contenedor principal */
+.container {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 40px;
+}
+
+/* Productos */
+.producto {
+  background-color: #fff;
+  border-radius: 16px;
+  box-shadow: 0 6px 16px rgba(0, 0, 0, 0.1);
+  padding: 20px;
+  width: 280px;
+  text-align: center;
+  transition: transform 0.2s;
+}
+
+.producto:hover {
+  transform: translateY(-5px);
+}
+
+.producto h3 {
+  color: #b07aa1;
+  margin-top: 10px;
+}
+
+.producto p {
+  font-size: 14px;
+  margin: 10px 0;
+}
+
+/* Botón agregar */
+.producto button {
+  background-color: #f2bfdc;
+  border: none;
+  padding: 10px 20px;
+  border-radius: 10px;
+  color: white;
+  font-weight: bold;
+  cursor: pointer;
+  transition: background-color 0.3s;
+}
+
+.producto button:hover {
+  background-color: #d689c2;
+}
+
+/* Carrito */
+#carrito-container {
+  background-color: #fff;
+  border-radius: 16px;
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
+  padding: 20px;
+  max-width: 400px;
+}
+
+#carrito-container h2 {
+  color: #b07aa1;
+  font-size: 24px;
+  margin-bottom: 15px;
+}
+
+#lista-carrito {
+  list-style-type: none;
+  padding: 0;
+  margin: 0;
+}
+
+#lista-carrito li {
+  padding: 10px;
+  border-bottom: 1px solid #f0d9e7;
+  display: flex;
+  justify-content: space-between;
+  color: #444;
+}
+
+#total {
+  margin-top: 15px;
+  font-weight: bold;
+  color: #b07aa1;
+  text-align: right;
+  font-size: 18px;
+}

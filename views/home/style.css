@@ -1,31 +1,39 @@
+/* Variables para colores y fuentes */
 :root {
-    --primary-color: #F8C8DC; /* Light Pink */
-    --secondary-color: #FFFFFF; /* White */
-    --accent-color: #B76E79; /* Dusty Rose / Rose Gold */
+    --primary-color: #F8C8DC; /* Rosa claro, aunque no se usa directamente en el header, puede ser para otros elementos */
+    --secondary-color: #FFFFFF; /* Blanco */
+    --accent-color: #B76E79; /* Rosa más oscuro/marrón rosado, para detalles y hover */
+    --header-gradient-start: #d96eb7; /* Rosa más vibrante para el inicio del degradado */
+    --header-gradient-end: #a68dd2; /* Morado claro para el final del degradado */
+    --button-bg-color: #e75480; /* Rosa para el botón */
+    --button-hover-color: #c7446e; /* Rosa más oscuro para el hover del botón */
     --text-color: #333333;
     --text-light: #555555;
-    --font-primary: 'Playfair Display', serif;
-    --font-secondary: 'Montserrat', sans-serif;
+    --font-primary: 'Playfair Display', serif; /* Fuente para títulos (ej. Hero) */
+    --font-secondary: 'Montserrat', sans-serif; /* Fuente general */
     --box-shadow: 0 4px 15px rgba(0, 0, 0, 0.1);
     --border-radius: 8px;
 }
 
+/* Reset básico y tipografía global */
 * {
     margin: 0;
     padding: 0;
     box-sizing: border-box;
+    font-family: var(--font-secondary); /* Usa la fuente secundaria por defecto */
 }
 
 body {
-    font-family: var(--font-secondary);
-    line-height: 1.6;
+    background-color: #fff8fb; /* Un fondo muy suave, casi blanco */
     color: var(--text-color);
-    background-color: #FFF9FB; /* Very light pinkish white */
+    line-height: 1.6;
+    height: auto;
+    display: block; /* Asegura que el body se comporte como un bloque */
 }
 
 a {
     text-decoration: none;
-    color: var(--accent-color);
+    color: var(--accent-color); /* Color por defecto para enlaces fuera de la navegación */
 }
 
 img {
@@ -33,48 +41,97 @@ img {
     display: block;
 }
 
-/* Header & Navigation */
+/* Header & Navigation (Consolidado y Mejorado) */
 header {
-    background-color: var(--secondary-color);
-    box-shadow: 0 2px 5px rgba(0,0,0,0.05);
-    position: sticky;
+    background: linear-gradient(to right, var(--header-gradient-start), var(--header-gradient-end)); /* Degradado de rosa a morado */
+    color: white;
+    padding: 1rem 0; /* Espaciado vertical interno */
+    box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1); /* Sombra suave */
+    position: sticky; /* Cabecera fija al hacer scroll */
     top: 0;
-    z-index: 1000;
+    z-index: 1000; /* Asegura que la cabecera esté por encima de otros elementos */
 }
 
 nav {
-    display: flex;
-    justify-content: space-between;
-    align-items: center;
-    padding: 1rem 5%;
-    max-width: 1200px;
-    margin: 0 auto;
+    display: flex; /* Usa flexbox para alinear logo, nav links y botón */
+    justify-content: space-between; /* Distribuye el espacio entre los elementos */
+    align-items: center; /* Centra verticalmente los elementos */
+    flex-wrap: wrap; /* Permite que los elementos se envuelvan en pantallas pequeñas */
+    max-width: 1200px; /* Ancho máximo del contenido de la navegación */
+    margin: 0 auto; /* Centra la navegación horizontalmente */
+    padding: 0 2rem; /* Espaciado horizontal interno */
 }
 
 .logo img {
-    height: 50px; /* Adjust as needed */
+    height: 60px; /* Tamaño del logo */
+    border-radius: var(--border-radius); /* Bordes redondeados para el logo (si es un cuadrado) */
+    /* Si el logo es solo texto, elimina o comenta esta regla y usa estilos para un <a> */
 }
 
 nav ul {
     list-style: none;
-    display: flex;
-}
-
-nav ul li {
-    margin-left: 2rem;
+    display: flex; /* Para alinear los ítems de la lista horizontalmente */
+    gap: 2rem; /* Espacio entre los ítems de navegación */
+    align-items: center; /* Centra verticalmente los ítems de la lista */
+    margin: 0; /* Asegura que no haya margen por defecto */
+    padding: 0; /* Asegura que no haya padding por defecto */
 }
 
 nav ul li a {
-    color: var(--text-light);
+    color: white; /* Color del texto de los enlaces */
     font-weight: 600;
-    transition: color 0.3s ease;
+    font-size: 1.1rem;
+    transition: color 0.3s ease; /* Transición suave para el color del texto */
+    position: relative; /* Necesario para el pseudo-elemento de la línea */
+    padding-bottom: 5px; /* Espacio para la línea inferior */
 }
 
 nav ul li a:hover {
-    color: var(--accent-color);
+    color: var(--secondary-color); /* Color blanco al pasar el ratón */
+    /* Puedes probar otros colores como un var(--accent-color) o un tono más claro del morado si prefieres */
 }
 
-/* Hero Section */
+/* Efecto de línea inferior al pasar el ratón */
+nav ul li a::after {
+    content: '';
+    position: absolute;
+    width: 0;
+    height: 2px;
+    background: var(--secondary-color); /* Línea blanca */
+    bottom: 0;
+    left: 50%;
+    transform: translateX(-50%);
+    transition: width 0.3s ease;
+}
+
+nav ul li a:hover::after {
+    width: 100%; /* La línea se extiende al 100% al pasar el ratón */
+}
+
+
+.btn-login {
+    background-color: var(--secondary-color); /* Fondo del botón blanco */
+    color: var(--button-bg-color); /* Texto del botón rosa */
+    padding: 0.8rem 1.8rem; /* Espaciado interno */
+    border: none; /* Sin borde */
+    border-radius: 25px; /* Bordes bien redondeados para un look moderno */
+    text-decoration: none;
+    font-weight: bold;
+    font-size: 1rem;
+    cursor: pointer;
+    transition: background-color 0.3s ease, color 0.3s ease, transform 0.2s ease;
+    display: inline-block; /* Asegura que padding y margin funcionen correctamente */
+    box-shadow: 0 2px 5px rgba(0, 0, 0, 0.2); /* Sombra suave para el botón */
+}
+
+.btn-login:hover {
+    background-color: var(--button-bg-color); /* Cambia a rosa más oscuro */
+    color: var(--secondary-color); /* Texto blanco */
+    transform: translateY(-2px); /* Ligero levantamiento al pasar el ratón */
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.25); /* Sombra un poco más pronunciada */
+}
+
+/* Hero Section (sin cambios significativos, solo revisión de variables) */
 .hero {
     background: url('baner.jpeg') no-repeat center center/cover;
     height: 80vh;
@@ -82,26 +139,25 @@ nav ul li a:hover {
     align-items: center;
     justify-content: center;
     text-align: center;
-    color: var(--secondary-color); /* White text on dark background */
     position: relative;
-   padding: 20%
 }
 
-.hero::before { /* Overlay for better text readability */
+.hero::before {
     content: '';
     position: absolute;
     top: 0;
     left: 0;
     width: 100%;
     height: 100%;
-    background-color: rgba(0, 0, 0, 0.4);
+    background-color: rgba(0, 0, 0, 0.599);
 }
 
 .hero-content {
-    position: relative; /* To be above the overlay */
+    position: relative;
     z-index: 1;
     max-width: 700px;
     padding: 0 1rem;
+    color: white;
 }
 
 .hero-content h1 {
@@ -114,7 +170,7 @@ nav ul li a:hover {
 .hero-content p {
     font-size: 1.2rem;
     margin-bottom: 2rem;
-    color: #f0f0f0; /* Slightly off-white for p */
+    color: #f0f0f0;
 }
 
 .cta-button {
@@ -130,91 +186,13 @@ nav ul li a:hover {
 }
 
 .cta-button:hover {
-    background-color: #a75d6a; /* Darker accent */
+    background-color: #a75d6a;
     transform: scale(1.05);
 }
 
-/* Categories Section */
-.categories, .looks-preview {
-    padding: 4rem 5%;
-    text-align: center;
-    max-width: 1200px;
-    margin: 0 auto;
-}
-
-.categories h2, .looks-preview h2 {
-    font-family: var(--font-primary);
-    font-size: 2.5rem;
-    margin-bottom: 1rem;
-    color: var(--text-color);
-}
-.looks-preview p {
-    margin-bottom: 2rem;
-    color: var(--text-light);
-}
-
-.category-grid {
-    display: grid;
-    grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
-    gap: 2rem;
-    margin-top: 2.5rem;
-}
-
-.category-card {
-    background-color: var(--secondary-color);
-    border-radius: var(--border-radius);
-    box-shadow: var(--box-shadow);
-    overflow: hidden;
-    text-align: center;
-    padding: 1.5rem;
-    transition: transform 0.3s ease, box-shadow 0.3s ease;
-}
-
-.category-card:hover {
-    transform: translateY(-10px);
-    box-shadow: 0 8px 25px rgba(0, 0, 0, 0.15);
-}
-
-.category-card img {
-    width: 100%;
-    height: 200px; /* Fixed height for consistency */
-    object-fit: cover;
-    border-radius: var(--border-radius) var(--border-radius) 0 0;
-    margin-bottom: 1rem;
-}
-
-.category-card h3 {
-    font-family: var(--font-primary);
-    font-size: 1.5rem;
-    margin-bottom: 0.5rem;
-    color: var(--accent-color);
-}
-
-.category-card p {
-    font-size: 0.9rem;
-    color: var(--text-light);
-    margin-bottom: 1rem;
-    min-height: 50px; /* To align buttons if text length varies */
-}
-
-.btn-category {
-    display: inline-block;
-    background-color: var(--primary-color);
-    color: var(--accent-color);
-    padding: 0.6rem 1.2rem;
-    border-radius: var(--border-radius);
-    font-weight: 600;
-    transition: background-color 0.3s ease;
-}
-
-.btn-category:hover {
-    background-color: #e0b2c3; /* Darker primary */
-}
-
-
-/* Footer */
+/* Footer (sin cambios) */
 footer {
-    background-color: #333;
+    background-color: #df7fdce8;
     color: #f4f4f4;
     text-align: center;
     padding: 1.5rem 0;
@@ -224,24 +202,31 @@ footer {
 /* Responsive Design */
 @media (max-width: 768px) {
     nav {
-        flex-direction: column;
+        flex-direction: column; /* Apila los elementos en pantallas más pequeñas */
         padding: 1rem 2%;
     }
 
-    .logo img {
-        margin-bottom: 0.5rem;
+    .logo {
+        margin-bottom: 0.5rem; /* Espacio debajo del logo */
     }
 
     nav ul {
+        flex-direction: column; /* Apila los enlaces de navegación */
+        align-items: center;
         padding-top: 0.5rem;
-        justify-content: center;
-        width: 100%;
+        gap: 0.8rem; /* Reduce el espacio entre los ítems apilados */
+        margin-bottom: 0.8rem; /* Espacio entre los enlaces y el botón */
     }
 
     nav ul li {
-        margin: 0 0.75rem;
+        margin: 0; /* Restablece el margen si se aplicó */
     }
-    
+
+    .btn-login {
+        width: auto; /* Permite que el botón se adapte a su contenido */
+        padding: 0.7rem 1.5rem; /* Ajusta el padding para móviles */
+    }
+
     .hero {
         height: 60vh;
     }
@@ -253,115 +238,18 @@ footer {
     .hero-content p {
         font-size: 1rem;
     }
-
-    .categories h2, .looks-preview h2 {
-        font-size: 2rem;
-    }
-
-    .category-grid {
-        grid-template-columns: 1fr; /* Stack cards on smaller screens */
-    }
 }
 
 @media (max-width: 480px) {
-    nav ul li {
-        margin: 0 0.5rem; /* Further reduce spacing for very small screens */
-    }
     nav ul li a {
         font-size: 0.9rem;
     }
+
     .hero-content h1 {
         font-size: 2rem;
     }
-}
 
-/* Reset básico */
-* {
-  margin: 0;
-  padding: 0;
-  box-sizing: border-box;
-  font-family: 'Segoe UI', sans-serif;
-}
-
-/* Fondo y cuerpo */
-body {
-  background-color: #fff8fb;
-  color: #333;
-}
-
-/* Encabezado */
-header {
-  background: linear-gradient(to right, #d96eb7, #a68dd2);
-  color: white;
-  padding: 30px 0;
-  text-align: center;
-  font-size: 1.5em;
-  box-shadow: 0 4px 10px rgba(0,0,0,0.1);
-}
-
-/* Sección Look */
-.ventana-look {
-  background: linear-gradient(to right, #f9b3e2, #d4a0ff, #a0e1ff);
-  color: white;
-  padding: 60px 30px;
-  margin: 50px auto;
-  border-radius: 25px;
-  width: 90%;
-  max-width: 1000px;
-  box-shadow: 0 8px 20px rgba(0, 0, 0, 0.15);
-  text-align: center;
-}
-
-.ventana-look h2 {
-  font-size: 3em;
-  margin-bottom: 30px;
-  font-weight: bold;
-}
-
-/* Contenido con imagen + texto */
-.contenido-look {
-  display: flex;
-  flex-wrap: wrap;
-  justify-content: center;
-  align-items: flex-start;
-  gap: 30px;
-}
-
-.contenido-look img {
-  max-width: 320px;
-  border-radius: 20px;
-  box-shadow: 0 6px 15px rgba(0, 0, 0, 0.2);
-}
-
-.texto-look {
-  max-width: 500px;
-  text-align: left;
-  background-color: rgba(255, 255, 255, 0.15);
-  padding: 20px;
-  border-radius: 20px;
-  backdrop-filter: blur(10px);
-}
-
-.texto-look p {
-  font-size: 1.1em;
-  margin-bottom: 15px;
-}
-
-.texto-look ul {
-  list-style: none;
-  padding-left: 0;
-}
-
-.texto-look ul li::before {
-  content: "💋 ";
-  margin-right: 5px;
-}
-
-/* Pie de página */
-footer {
-  text-align: center;
-  padding: 50px;
-  background-color: #f2f2f2;
-  color: #888;
-  margin-top: 60px;
+    .btn-login {
+        padding: 0.6rem 1.2rem;
+    }
 }

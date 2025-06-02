@@ -1,0 +1,47 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8">
+  <title>Carrito de Compras</title>
+</head>
+<body>
+  <h1>Productos</h1>
+  <div id="productos">
+    <div>
+      <p>Lip Gloss - $6.000</p>
+      <button onclick="agregarAlCarrito('Lip Gloss', 6.000)">Agregar</button>
+    </div>
+    <div>
+      <p>Producto B - $15</p>
+      <button onclick="agregarAlCarrito('Producto B', 15)">Agregar</button>
+    </div>
+  </div>
+
+  <h2>Carrito</h2>
+  <ul id="carrito"></ul>
+  <p>Total: $<span id="total">0</span></p>
+
+  <script>
+    let carrito = [];
+    let total = 0;
+
+    function agregarAlCarrito(nombre, precio) {
+      carrito.push({ nombre, precio });
+      total += precio;
+      actualizarCarrito();
+    }
+
+    function actualizarCarrito() {
+      const lista = document.getElementById("carrito");
+      const totalSpan = document.getElementById("total");
+      lista.innerHTML = "";
+      carrito.forEach((item, i) => {
+        const li = document.createElement("li");
+        li.textContent = `${item.nombre} - $${item.precio}`;
+        lista.appendChild(li);
+      });
+      totalSpan.textContent = total;
+    }
+  </script>
+</body>
+</html>

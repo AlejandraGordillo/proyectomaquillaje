@@ -1,0 +1,96 @@
+<?php
+// Example structure for your UserController.php (or similar)
+// This is PSEUDOCODE and needs to be adapted to your framework/setup.
+
+class UserController {
+    // ... other methods ...
+
+    public function login() {
+        // 1. Check for POST request
+        if ($_SERVER['REQUEST_METHOD'] == 'POST') {
+            // 2. Sanitize POST data (e.g., trim whitespace, remove HTML tags)
+            //    DO NOT use htmlspecialchars for values going into DB, use for displaying back to user.
+            $email = trim($_POST['email']);
+            $password = trim($_POST['password']);
+
+            // 3. (IMPORTANT) Validate CSRF Token
+            //    If (empty($_POST['csrf_token']) || $_POST['csrf_token'] !== $_SESSION['csrf_token']) {
+            //        // Handle error: CSRF token mismatch, redirect or show error
+            //        die('Invalid CSRF Token');
+            //    }
+            //    // Unset token after validation to prevent reuse
+            //    // unset($_SESSION['csrf_token']);
+
+            // 4. Server-Side Validation
+            $data = [
+                'email' => $email,
+                'password' => $password,
+                'email_err' => '',
+                'password_err' => ''
+            ];
+
+            if (empty($data['email'])) {
+                $data['email_err'] = 'Por favor, ingrese el correo electrónico.';
+            } elseif (!filter_var($data['email'], FILTER_VALIDATE_EMAIL)) {
+                $data['email_err'] = 'Formato de correo electrónico inválido.';
+            }
+
+            if (empty($data['password'])) {
+                $data['password_err'] = 'Por favor, ingrese la contraseña.';
+            }
+
+            // 5. Check if all errors are empty (i.e., no validation errors)
+            if (empty($data['email_err']) && empty($data['password_err'])) {
+                // All validation checks passed, proceed with authentication
+
+                // 6. Authenticate User (THIS IS WHERE YOU INTERACT WITH YOUR MODEL/DATABASE)
+                //    You would call a method in your User Model (e.g., $this->userModel->login($email, $password))
+                //    This method should:
+                //    a. Fetch user by email (using prepared statements to prevent SQL injection!)
+                //    b. Verify password (using password_verify() against hashed password from DB)
+
+                // Example Pseudo-Code for Model interaction:
+                // $loggedInUser = $this->userModel->getUserByEmail($data['email']);
+
+                // if ($loggedInUser && password_verify($data['password'], $loggedInUser->password_hash)) {
+                //     // 7. Create Session (if login successful)
+                //     $this->createUserSession($loggedInUser); // Custom function to set session variables
+                //     redirect('dashboard'); // Redirect to dashboard or home page
+                // } else {
+                //     // 8. If login failed, set generic error message
+                //     $data['password_err'] = 'Credenciales incorrectas.'; // Generic message for security
+                //     // Reload the view with error messages
+                //     $this->view('login', $data);
+                // }
+
+            } else {
+                // Load view with errors
+                $this->view('login', $data);
+            }
+
+        } else {
+            // If it's a GET request, load the empty form
+            $data = [
+                'email' => '',
+                'password' => '',
+                'email_err' => '',
+                'password_err' => ''
+            ];
+            // (IMPORTANT) Generate and store CSRF token in session for the form
+            // $_SESSION['csrf_token'] = bin2hex(random_bytes(32));
+
+            $this->view('login', $data);
+        }
+    }
+
+    // Example function to create session (put in a helper or auth service)
+    // private function createUserSession($user) {
+    //     $_SESSION['user_id'] = $user->id;
+    //     $_SESSION['user_email'] = $user->email;
+    //     $_SESSION['user_name'] = $user->name; // or whatever user data you need
+    //     // Regenerate session ID for security after login
+    //     session_regenerate_id(true);
+    // }
+
+    // ... other methods and model/view loading ...
+}
