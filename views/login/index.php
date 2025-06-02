@@ -5,7 +5,6 @@
   <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
   <title>Iniciar Sesión | Glam Beauty</title>
 
-  <!-- Bootstrap 5 -->
   <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css" rel="stylesheet">
 
   <!-- Font Awesome -->
@@ -77,7 +76,7 @@
               <h4 class="fw-bold">Iniciar Sesión</h4>
             </div>
 
-            <form action="index.php?controller=login&action=login" method="POST" onsubmit="return redirectToHome();">
+            <form action="index.php?controller=login&action=login" method="POST">
               <div class="mb-3">
                 <label for="email" class="form-label">Correo electrónico</label>
                 <input type="email" class="form-control" id="email" name="email" placeholder="usuario@ejemplo.com" required>
@@ -101,18 +100,7 @@
     </div>
   </div>
 
-  <script>
-    function redirectToHome() {
-      // Aquí puedes agregar la lógica para verificar el inicio de sesión
-      // Si el inicio de sesión es exitoso, redirige a la página de inicio
-      window.location.href = 'index.html'; // Cambia esta URL según sea necesario
-      return false; // Evita que el formulario se envíe de forma predeterminada
-    }
-  </script>
-
 </body>
 </html>
-
-
 
 
