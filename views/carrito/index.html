@@ -278,6 +278,7 @@
     <div class="acciones">
       <button id="vaciar" onclick="vaciarCarrito()">Vaciar Carrito</button>
       <button id="comprar" onclick="mostrarFormulario()">Comprar</button>
+      <button id="comprar" onclick="inicio()">Inicio</button>
     </div>
 
     <form id="formulario-compra" onsubmit="realizarCompra(event)">
@@ -343,6 +344,10 @@
         return;
       }
       document.getElementById("formulario-compra").style.display = "flex";
+    }
+
+     function inicio() {
+      window.location.href = "../home/index.html"; // Redirige a la página de inicio
     }
 
     function realizarCompra(event) {
