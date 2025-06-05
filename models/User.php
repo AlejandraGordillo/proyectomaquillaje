@@ -1,5 +1,5 @@
 <?php
-require_once __DIR__ . 'config/conexion.php';
+require_once __DIR__ . '/../config/conexion.php';
 
 class User {
     private $db;
@@ -8,13 +8,13 @@ class User {
         $this->db = Database::connect();
     }
 
-    public function create($nombre, $correo, $password) {
-        $stmt = $this->db->prepare("INSERT INTO users (nombre, correo, password) VALUES (?, ?, ?)");
-        return $stmt->execute([$nombre, $correo, password($password, PASSWORD_BCRYPT)]);
+    public function create($nombre, $correo, $contraseña) {
+        $stmt = $this->db->prepare("INSERT INTO username (nombre, correo, contraseña) VALUES (?, ?, ?)");
+        return $stmt->execute([$nombre, $correo, password_hash($contraseña, PASSWORD_BCRYPT)]);
     }
 
     public function findByEmail($correo) {
-        $stmt = $this->db->prepare("SELECT * FROM users WHERE correo = ?");
+        $stmt = $this->db->prepare("SELECT * FROM username WHERE correo = ?");
         $stmt->execute([$correo]);
         return $stmt->fetch(PDO::FETCH_ASSOC);
     }

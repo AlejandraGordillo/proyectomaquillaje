@@ -1,47 +1,73 @@
 <?php
-require_once __DIR__ . 'models/User.php';
+require_once __DIR__ . '/../models/User.php';
 
 class AuthController {
     public function register() {
         if ($_SERVER['REQUEST_METHOD'] === 'POST') {
-            $nombre = $_POST['nombre'];
-            $correo = $_POST['correo'];
-            $password = $_POST['password'];
-            $repetir = $_POST['repetir'];
+            $nombre = $_POST['nombre'] ?? '';
+            $correo = $_POST['correo'] ?? '';
+            $contraseña = $_POST['contraseña'] ?? '';
+            $repetir = $_POST['repetir'] ?? '';
 
-            if ($password !== $repetir) {
-                echo "Las contraseñas no coinciden.";
+            if ($contraseña !== $repetir) {
+                echo "❌ Las contraseñas no coinciden.";
                 return;
             }
 
             $user = new User();
-            if ($user->create($nombre, $correo, $password)) {
-                echo "Usuario registrado. <a href='?action=login'>Inicia sesión</a>";
+
+            // Verificar si ya existe un usuario con ese correo
+            if ($user->findByEmail($correo)) {
+                echo "❌ El correo ya está registrado.";
+                return;
+            }
+
+            if ($user->create($nombre, $correo, $contraseña)) {
+                header('Location: index.php?action=login');
+                exit;
             } else {
-                echo "Error al registrar.";
+                echo "❌ Error al registrar usuario.";
             }
         } else {
-            include '../views/register.php';
+            include __DIR__ . '/../views/register.php';
         }
     }
 
     public function login() {
         if ($_SERVER['REQUEST_METHOD'] === 'POST') {
-            $correo = $_POST['correo'];
-            $password = $_POST['password'];
+            $correo = $_POST['correo'] ?? '';
+            $contraseña = $_POST['contraseña'] ?? '';
 
             $user = new User();
             $usuario = $user->findByEmail($correo);
 
-            if ($usuario && password_verify($password, $usuario['password'])) {
+            if ($usuario && password_verify($contraseña, $usuario['contraseña'])) {
                 session_start();
                 $_SESSION['user'] = $usuario;
-                echo "Bienvenido, " . htmlspecialchars($usuario['nombre']);
+                header('Location: views/home/index.php'); // Ruta corregida
+                exit;
             } else {
-                echo "Credenciales inválidas.";
+                echo "❌ Credenciales inválidas.";
             }
         } else {
-            include '../views/login/login.php';
+            include __DIR__ . '/../views/login/login.php';
         }
+    }
+
+    public function dashboard() {
+        session_start();
+        if (!isset($_SESSION['user'])) {
+            header('Location: index.php?action=login');
+            exit;
+        }
+
+        include __DIR__ . '/../views/home/index.php'; // Ruta corregida
+    }
+
+    public function logout() {
+        session_start();
+        session_destroy();
+        header('Location: index.php?action=login');
+        exit;
     }
 }

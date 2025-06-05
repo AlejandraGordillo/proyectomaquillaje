@@ -69,7 +69,7 @@
               <h4 class="fw-bold">Crear Cuenta</h4>
             </div>
 
-            <form action="index.php" method="POST">
+            <form method="POST">
               <div class="mb-3">
                 <label for="username" class="form-label">Nombre de Usuario</label>
                 <input type="text" class="form-control" id="username" name="username" placeholder="Tu nombre de usuario" required>
@@ -93,7 +93,7 @@
             </form>
 
             <div class="text-center mt-3">
-              <p class="mb-0">¿Ya tienes una cuenta? <a href="../login/login.php">Inicia sesión</a></p>
+              <p class="mb-0">¿Ya tienes una cuenta? <a href="/../views/login.php">Inicia sesión</a></p>
             </div>
 
           </div>

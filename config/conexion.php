@@ -1,16 +1,6 @@
 <?php
-$host = "localhost";
-$usuario = "root";
-$contrasena = "";
-$base_de_datos = "proyecto_maquillaje";
-
-// Crear conexión
-$conn = new mysqli($host, $usuario, $contrasena, $base_de_datos);
-
-// Verificar conexión
-if ($conn->connect_error) {
-    die("Conexión fallida: " . $conn->connect_error);
+class Database {
+    public static function connect() {
+        return new PDO("mysql:host=localhost;dbname=proyecto_maquillaje", "root", "");
+    }
 }
-
-echo "Conexión exitosa";
-?>

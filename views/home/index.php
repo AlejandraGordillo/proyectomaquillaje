@@ -19,7 +19,7 @@
                 <li><a href="#home">Inicio</a></li>
                 <li><a href="../productos/index.html">Productos</a></li>
                 <li><a href="../contacto/index.html">Contactos</a></li>
-                <li><a href="../login/index.php" class="btn-login">Iniciar sesión</a></li>
+                <li><a href="../login/login.php" class="btn-login">Iniciar sesión</a></li>
             </ul>
         </nav>
     </header>
